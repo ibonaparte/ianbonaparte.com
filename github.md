@@ -3,16 +3,23 @@ branch: main
 
 ## Last sync
 
-date: 2026-09-15T00:00:00Z
+date: 2026-09-15T19:46:19Z
 
 ### Updated in this project
 
-- Connected the repository; it is empty (no commits yet), so nothing was imported.
-- Regenerated `index.html` as the self-contained published build.
-- Added `CNAME` (ianbonaparte.com), `.nojekyll` and `README.md` for GitHub Pages.
+- Repository is public and serving via GitHub Pages at ianbonaparte.com.
+- `index.html` regenerated from the working file; it references `assets/` by relative path (not inlined).
+- Contact CV button replaced with an Email mailto per approved copy.
+- Added `CNAME`, `.nojekyll` and `README.md` for Pages setup.
 
 ## Screen map
 
 | Screen | Repo files |
 |---|---|
 | Portfolio (single page, all sections) | index.html (generated from `Ian Bonaparte PS2.dc.html`) |
+| Case study screenshots | assets/screens/*.png, assets/screens/*.jpg |
+| Debticate card thumbnails | assets/logo-debticate.svg |
+
+## Sync history
+
+- 2026-09-15 — repo connected while empty; initial files prepared and uploaded manually.
