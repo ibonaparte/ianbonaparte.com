@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<template id="__bundler_thumbnail">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><rect width="400" height="400" fill="#0d1c42"></rect><circle cx="200" cy="170" r="120" fill="#1e3f80" opacity="0.7"></circle><text x="200" y="215" font-family="system-ui, sans-serif" font-size="120" font-weight="600" fill="#dcebff" text-anchor="middle">IB</text></svg>
+</template>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #050a18; }
+  a { color: #8ab6ff; text-decoration: none; }
+  a:hover { color: #cfe0ff; }
+  ::selection { background: #8ab6ff; color: #03060f; }
+  [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+  [data-reveal].in { opacity: 1; transform: none; }
+  @keyframes ps2float { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-16px) rotate(1.5deg); } }
+  @keyframes ps2glow { 0%,100% { opacity:.38; } 50% { opacity:.72; } }
+  @keyframes ps2pulse { 0%,100% { opacity:.5; } 50% { opacity:1; } }
+  [data-glow="off"] [data-glow-el] { text-shadow: none !important; box-shadow: none !important; animation: none !important; }
+  [data-glow="off"] [data-glow-el][style*="radial-gradient"] { opacity: .3 !important; }
+</style>
+</helmet>
+<div data-glow="{{ glowAttr }}" style="font-family:'Instrument Sans', sans-serif; color:#e8eeff; background:#050a18; min-height:100vh; position:relative; overflow-x:hidden;">
+
+  <!-- ambient void: fixed backdrop -->
+  <div style="position:fixed; inset:0; z-index:0; pointer-events:none; background:radial-gradient(120% 80% at 50% 0%, #1e3f80 0%, #10214a 38%, #070e24 74%, #040814 100%);"></div>
+  <div style="position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;">
+    <div style="position:absolute; left:6%; top:18%; width:22px; height:140px; background:linear-gradient(180deg, rgba(180,210,255,.34), rgba(180,210,255,0)); animation:ps2float 11s ease-in-out infinite;"></div>
+    <div style="position:absolute; left:89%; top:10%; width:15px; height:190px; background:linear-gradient(180deg, rgba(180,210,255,.26), rgba(180,210,255,0)); animation:ps2float 14s ease-in-out infinite;"></div>
+    <div style="position:absolute; left:78%; top:58%; width:30px; height:90px; background:linear-gradient(180deg, rgba(140,180,255,.22), rgba(140,180,255,0)); animation:ps2float 12s ease-in-out infinite;"></div>
+    <div style="position:absolute; left:14%; top:70%; width:13px; height:160px; background:linear-gradient(180deg, rgba(180,210,255,.22), rgba(180,210,255,0)); animation:ps2float 10s ease-in-out infinite;"></div>
+    <div data-glow-el style="position:absolute; left:50%; top:-8%; width:min(760px,110vw); height:340px; transform:translateX(-50%); background:radial-gradient(closest-side, rgba(140,185,255,.22), transparent); animation:ps2glow 9s ease-in-out infinite;"></div>
+  </div>
+
+  <!-- ================= SYSTEM BAR ================= -->
+  <div style="position:sticky; top:0; z-index:50; backdrop-filter:blur(12px); background:rgba(7,14,36,.72); border-bottom:1px solid rgba(160,200,255,.18);">
+    <div style="max-width:1240px; margin:0 auto; padding:13px clamp(18px,4vw,34px); display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+      <a href="#top" onClick="{{ goHome }}" style="font-size:13px; letter-spacing:0.2em; font-weight:600; color:#eaf1ff; display:flex; align-items:center; gap:12px; text-transform:uppercase;"><span data-glow-el style="display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border:1px solid rgba(160,200,255,.45); border-radius:3px; background:linear-gradient(180deg, rgba(180,215,255,.22), rgba(60,110,200,.10)); box-shadow:0 0 16px rgba(140,185,255,.28); font-size:12px; letter-spacing:0.04em; font-weight:600; color:#dcebff;">IB</span>Ian Bonaparte</a>
+      <div style="display:flex; gap:clamp(12px,2.4vw,26px); align-items:center; font-size:15px; flex-wrap:wrap;">
+        <a href="#work" onClick="{{ navWork }}" style="color:#a3b8da;" style-hover="color:#fff;">Work</a>
+        <a href="#about" onClick="{{ navAbout }}" style="color:#a3b8da;" style-hover="color:#fff;">About</a>
+        <a href="#skills" onClick="{{ navSkills }}" style="color:#a3b8da;" style-hover="color:#fff;">Skills</a>
+        <a href="#contact" onClick="{{ navContact }}" style="color:#04101f; background:#9dc2ff; padding:8px 17px; border-radius:3px; font-weight:600;" style-hover="background:#fff;">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= HOME ================= -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <div id="top" style="position:relative; z-index:1;">
+
+    <!-- HERO -->
+    <section style="max-width:1240px; margin:0 auto; padding:clamp(64px,11vw,132px) clamp(18px,4vw,34px) clamp(48px,7vw,92px); text-align:center;">
+      <h1 data-glow-el style="margin:0; font-size:clamp(44px,9vw,96px); line-height:0.98; font-weight:300; letter-spacing:0.01em; color:#f4f8ff; text-shadow:0 0 44px rgba(140,185,255,.5);">Ian Bonaparte</h1>
+      <div style="font-size:clamp(17px,2.1vw,24px); letter-spacing:0.34em; color:#cfe0ff; margin-top:24px; text-transform:uppercase;">Design Engineer</div>
+      <div data-glow-el style="width:min(700px,94%); height:2px; margin:34px auto 0; background:linear-gradient(90deg, transparent, rgba(180,215,255,.6), transparent); box-shadow:0 0 12px rgba(140,185,255,.3);"></div>
+      <p style="margin:32px auto 0; max-width:640px; font-size:clamp(18px,1.9vw,22px); line-height:1.55; color:#e2ecff;">Bridging the gap between design and engineering teams</p>
+      <p style="margin:14px auto 0; max-width:640px; font-size:clamp(16px,1.65vw,18px); line-height:1.65; color:#b3c6e6;">UX/UI Designer with an expertise in front-end engineering.<br>Experienced in leading and building multiple product and website redesigns.</p>
+      <div style="margin-top:42px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+        <a href="#contact" onClick="{{ navContact }}" style="font-size:16px; color:#04101f; background:#9dc2ff; padding:15px 32px; border-radius:3px; font-weight:600;" style-hover="background:linear-gradient(180deg,#ffffff,#a9caff);">Get in touch</a>
+      </div>
+    </section>
+
+    <!-- STAT STRIP -->
+    <section style="border-top:1px solid rgba(160,200,255,.16); border-bottom:1px solid rgba(160,200,255,.16); background:rgba(10,22,52,.45);">
+      <div style="max-width:1240px; margin:0 auto; padding:26px clamp(18px,4vw,34px); display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:24px;">
+        <div><div style="font-size:36px; font-weight:300; line-height:1; color:#f4f8ff;">8<span style="color:#8ab6ff;">yrs</span></div><div style="font-size:11px; letter-spacing:0.18em; color:#a3b8da; margin-top:8px; text-transform:uppercase;">Front-end experience</div></div>
+        <div><div style="font-size:36px; font-weight:300; line-height:1; color:#f4f8ff;">4</div><div style="font-size:11px; letter-spacing:0.18em; color:#a3b8da; margin-top:8px; text-transform:uppercase;">Product redesigns</div></div>
+        <div><div style="font-size:36px; font-weight:300; line-height:1; color:#f4f8ff;">200<span style="color:#8ab6ff;">+</span></div><div style="font-size:11px; letter-spacing:0.18em; color:#a3b8da; margin-top:8px; text-transform:uppercase;">A/B tests launched</div></div>
+      </div>
+    </section>
+
+    <!-- SELECTED WORK -->
+    <section id="work" style="max-width:1240px; margin:0 auto; padding:clamp(52px,8vw,96px) clamp(18px,4vw,34px);">
+      <div data-reveal style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:32px; flex-wrap:wrap;">
+        <div style="font-size:12px; letter-spacing:0.32em; color:#a9caff; text-transform:uppercase;">Selected work</div>
+        <div style="font-size:12px; letter-spacing:0.2em; color:#a3b8da; text-transform:uppercase;">4 items</div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px;">
+        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="4">
+          <a href="#" onClick="{{ p.open }}" data-reveal style="display:block; border:1px solid rgba(160,200,255,.28); border-radius:4px; background:linear-gradient(180deg, rgba(140,180,255,.14), rgba(140,180,255,.04)); backdrop-filter:blur(6px); color:#e8eeff; padding-bottom:20px; transition:transform .35s, box-shadow .35s, border-color .35s;" style-hover="transform:translateY(-6px); box-shadow:0 0 44px rgba(140,180,255,.34); border-color:rgba(180,215,255,.55);">
+            <div style="height:126px; background:{{ p.swatch }}; border-bottom:1px solid rgba(160,200,255,.28); overflow:hidden;">{{ p.thumbImg }}</div>
+            <div style="padding:18px 18px 0;">
+              <div style="font-size:21px; font-weight:400; color:#f2f6ff;">{{ p.name }}</div>
+              <div style="font-size:13px; color:#a3b8da; margin-top:7px; line-height:1.55;">{{ p.blurb }}</div>
+              <div style="margin-top:14px; font-size:11px; letter-spacing:0.16em; color:#a9caff;">{{ p.year }} ▸</div>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" style="border-top:1px solid rgba(160,200,255,.14);">
+      <div style="max-width:1240px; margin:0 auto; padding:clamp(52px,8vw,96px) clamp(18px,4vw,34px); display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:clamp(28px,5vw,64px);">
+        <div data-reveal style="font-size:12px; letter-spacing:0.32em; color:#a9caff; text-transform:uppercase;">About</div>
+        <div data-reveal style="grid-column:span 2; min-width:0;">
+          <p style="margin:0 0 20px; font-size:clamp(17px,1.8vw,20px); line-height:1.7; color:#e2ecff;">I design interfaces and then build them. For eight years that has mostly meant sitting between design and engineering teams: prototyping in Figma, writing the front end that actually ships, and putting together the design systems other engineers work out of.</p>
+          <p style="margin:0; font-size:clamp(17px,1.8vw,20px); line-height:1.7; color:#e2ecff;">Most recently I led the front end for a fintech platform's component library and UI redesign. Before that I spent years in ecommerce, where almost nothing shipped without a test behind it. I got used to reading analytics and arguing from numbers instead of taste. I have worn a lot of hats along the way, so I bring marketing and analytics knowledge that most front-end engineers do not.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" style="border-top:1px solid rgba(160,200,255,.14);">
+      <div style="max-width:1240px; margin:0 auto; padding:clamp(52px,8vw,88px) clamp(18px,4vw,34px);">
+        <div data-reveal style="font-size:12px; letter-spacing:0.32em; color:#a9caff; margin-bottom:30px; text-transform:uppercase;">Skills</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1px;">
+          <div data-reveal style="background:rgba(10,22,52,.72); box-shadow:0 0 0 1px rgba(160,200,255,.2); padding:24px;"><div style="font-size:11px; letter-spacing:0.18em; color:#a9caff; margin-bottom:14px; text-transform:uppercase;">Languages</div><div style="font-size:14px; color:#cfdcf5; line-height:2.1;">HTML/CSS (Sass)<br>JavaScript<br>React<br>C, C#, C++</div></div>
+          <div data-reveal style="background:rgba(10,22,52,.72); box-shadow:0 0 0 1px rgba(160,200,255,.2); padding:24px;"><div style="font-size:11px; letter-spacing:0.18em; color:#a9caff; margin-bottom:14px; text-transform:uppercase;">Design systems</div><div style="font-size:14px; color:#cfdcf5; line-height:2.1;">BEM Methodology<br>Atomic Design<br>Progressive Enhancement<br>WCAG 2.1 Compliant</div></div>
+          <div data-reveal style="background:rgba(10,22,52,.72); box-shadow:0 0 0 1px rgba(160,200,255,.2); padding:24px;"><div style="font-size:11px; letter-spacing:0.18em; color:#a9caff; margin-bottom:14px; text-transform:uppercase;">AI-assisted</div><div style="font-size:14px; color:#cfdcf5; line-height:2.1;">Prompt-driven prototyping<br>Claude Code<br>Claude Design<br>Cursor</div></div>
+          <div data-reveal style="background:rgba(10,22,52,.72); box-shadow:0 0 0 1px rgba(160,200,255,.2); padding:24px;"><div style="font-size:11px; letter-spacing:0.18em; color:#a9caff; margin-bottom:14px; text-transform:uppercase;">Domains</div><div style="font-size:14px; color:#cfdcf5; line-height:2.1;">Ecommerce<br>Fintech<br>Finance<br>SaaS</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" style="border-top:1px solid rgba(160,200,255,.14);">
+      <div data-reveal style="max-width:1240px; margin:0 auto; padding:clamp(60px,9vw,104px) clamp(18px,4vw,34px); text-align:center;">
+        <div style="font-size:12px; letter-spacing:0.32em; color:#a9caff; margin-bottom:24px; text-transform:uppercase;">Contact</div>
+        <a href="mailto:IanNBonaparte@gmail.com" data-glow-el style="font-size:clamp(24px,4.6vw,46px); font-weight:300; letter-spacing:0.01em; color:#f2f6ff; text-shadow:0 0 30px rgba(140,180,255,.5); word-break:break-word;">IanNBonaparte@gmail.com</a>
+        <p style="margin:26px auto 0; max-width:480px; font-size:16px; line-height:1.65; color:#a3b8da;">Always happy to talk product, design systems, or motion, whether it's a role or a project.</p>
+        <div style="margin-top:34px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; font-size:15px;">
+          <a href="https://www.linkedin.com/in/ian-napoleon-bonaparte/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:10px; color:#cfe0ff; border:1px solid rgba(160,200,255,.35); background:rgba(140,180,255,.07); padding:13px 24px; border-radius:3px;" style-hover="background:rgba(140,180,255,.18); color:#fff;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.76-1.95C20.3 8.75 21 11 21 14.1V21h-4v-6.1c0-1.46-.03-3.34-2.04-3.34-2.04 0-2.36 1.59-2.36 3.24V21H9z"></path></svg>
+            LinkedIn
+          </a>
+          <a href="mailto:IanNBonaparte@gmail.com" style="display:inline-flex; align-items:center; gap:10px; color:#cfe0ff; border:1px solid rgba(160,200,255,.35); background:rgba(140,180,255,.07); padding:13px 24px; border-radius:3px;" style-hover="background:rgba(140,180,255,.18); color:#fff;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>
+            Email
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ================= PROJECT DETAIL ================= -->
+  <sc-if value="{{ isProject }}" hint-placeholder-val="{{ false }}">
+  <div style="position:relative; z-index:1; max-width:1240px; margin:0 auto; padding:clamp(36px,6vw,72px) clamp(18px,4vw,34px) clamp(56px,8vw,96px);">
+    <a href="#" onClick="{{ goHome }}" style="display:inline-flex; align-items:center; gap:9px; font-size:15px; color:#cfe0ff; border:1px solid rgba(160,200,255,.35); background:rgba(140,180,255,.07); padding:11px 20px; border-radius:3px;" style-hover="background:rgba(140,180,255,.18); color:#fff;"><span style="font-size:14px; line-height:1;">◂</span>Back</a>
+
+    <div style="margin-top:34px; font-size:12px; letter-spacing:0.3em; color:#a9caff;">{{ current.year }}</div>
+    <h1 style="margin:16px 0 0; font-size:clamp(42px,8vw,86px); line-height:1; font-weight:300; letter-spacing:0.01em; color:#f4f8ff; text-shadow:0 0 40px rgba(140,185,255,.45);">{{ current.name }}</h1>
+    <p style="margin:22px 0 0; font-size:clamp(17px,2vw,23px); line-height:1.55; color:#b3c6e6; max-width:660px; font-weight:300;">{{ current.tagline }}</p>
+
+    <div style="margin-top:38px; display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;">
+      <div style="background:rgba(10,22,52,.72); box-shadow:0 0 0 1px rgba(160,200,255,.2); padding:20px;"><div style="font-size:11px; letter-spacing:0.18em; color:#a9caff; margin-bottom:8px; text-transform:uppercase;">Role</div><div style="font-size:15px; color:#e8eeff;">{{ current.role }}</div></div>
+      <div style="background:rgba(10,22,52,.72); box-shadow:0 0 0 1px rgba(160,200,255,.2); padding:20px;"><div style="font-size:11px; letter-spacing:0.18em; color:#a9caff; margin-bottom:8px; text-transform:uppercase;">Domain</div><div style="font-size:15px; color:#e8eeff;">{{ current.domain }}</div></div>
+      <div style="background:rgba(10,22,52,.72); box-shadow:0 0 0 1px rgba(160,200,255,.2); padding:20px;"><div style="font-size:11px; letter-spacing:0.18em; color:#a9caff; margin-bottom:8px; text-transform:uppercase;">Impact</div><div style="font-size:15px; color:#e8eeff;">{{ current.impact }}</div></div>
+      <div style="background:rgba(10,22,52,.72); box-shadow:0 0 0 1px rgba(160,200,255,.2); padding:20px;"><div style="font-size:11px; letter-spacing:0.18em; color:#a9caff; margin-bottom:8px; text-transform:uppercase;">Year</div><div style="font-size:15px; color:#e8eeff;">{{ current.year }}</div></div>
+    </div>
+
+
+
+    <!-- PROTECTED SCREENS -->
+    <div style="margin-top:56px; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:clamp(20px,5vw,64px);">
+      <div style="font-size:12px; letter-spacing:0.3em; color:#a9caff; text-transform:uppercase;">Screens</div>
+      <div style="grid-column:span 2; min-width:0;">
+
+        <sc-if value="{{ locked }}" hint-placeholder-val="{{ true }}">
+        <div style="border:1px solid rgba(160,200,255,.24); border-radius:4px; background:rgba(10,22,52,.6); padding:clamp(20px,3vw,30px); position:relative; overflow:hidden;">
+          <div style="position:absolute; inset:0; opacity:.5; background:repeating-linear-gradient(135deg, rgba(160,200,255,.05) 0 10px, transparent 10px 20px); pointer-events:none;"></div>
+          <div style="position:relative; display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border:1px solid rgba(160,200,255,.45); border-radius:3px; background:linear-gradient(180deg, rgba(180,215,255,.2), rgba(60,110,200,.08));">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><rect x="2" y="5.2" width="8" height="5.6" rx="1" stroke="#cfe0ff" stroke-width="1.2"></rect><path d="M4 5.2V3.8a2 2 0 0 1 4 0v1.4" stroke="#cfe0ff" stroke-width="1.2"></path></svg>
+              </span>
+              <div style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#dce8ff;">Screens available on request</div>
+            </div>
+            <p style="margin:0; font-size:16px; line-height:1.7; color:#b3c6e6; max-width:56ch; text-wrap:pretty;">Product screenshots for this project are kept off the public page. Enter the passphrase to view them, or email me and I will send it over.</p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+              <input type="password" value="{{ pw }}" onChange="{{ onPw }}" onKeyDown="{{ onPwKey }}" placeholder="Passphrase" aria-label="Passphrase" style="background:rgba(4,10,26,.8); border:1px solid rgba(160,200,255,.32); border-radius:3px; color:#eaf1ff; font-family:inherit; font-size:15px; padding:11px 14px; min-width:210px; outline:none;" style-focus="border-color:#8ab6ff; box-shadow:0 0 0 3px rgba(138,182,255,.16);">
+              <button onClick="{{ submitPw }}" style="cursor:pointer; border:none; border-radius:3px; background:#9dc2ff; color:#04101f; font-family:inherit; font-weight:600; font-size:15px; padding:11px 20px;" style-hover="background:#fff;">Unlock</button>
+              <a href="mailto:IanNBonaparte@gmail.com?subject=Portfolio%20screens%20access" style="font-size:15px; color:#8ab6ff; white-space:nowrap; text-decoration:underline; text-underline-offset:3px;" style-hover="color:#cfe0ff;">Request access</a>
+            </div>
+            <sc-if value="{{ pwError }}" hint-placeholder-val="{{ false }}">
+              <div role="alert" style="font-size:14px; color:#ffb4b4;">That passphrase did not match. Try again, or request access.</div>
+            </sc-if>
+          </div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ showScreens }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <sc-if value="{{ showUnlockNote }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+            <div style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#a9caff;">Unlocked · please do not redistribute</div>
+            <a href="#" onClick="{{ relock }}" style="font-size:14px; color:#a3b8da; text-decoration:underline; text-underline-offset:3px;" style-hover="color:#fff;">Hide screens</a>
+          </div>
+          </sc-if>
+          <!-- live screen viewer -->
+          <sc-if value="{{ hasScreens }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-direction:column; gap:14px;">
+
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <sc-if value="{{ manyScreens }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <sc-for list="{{ screenTabs }}" as="t" hint-placeholder-count="2">
+                  <a href="#" onClick="{{ t.pick }}" style="font-size:12px; letter-spacing:0.06em; padding:8px 14px; border-radius:3px; border:1px solid {{ t.border }}; background:{{ t.bg }}; color:{{ t.color }}; white-space:nowrap; font-weight:500;">{{ t.name }}</a>
+                </sc-for>
+              </div>
+              </sc-if>
+              <div style="flex:1;"></div>
+              <div style="display:flex; border:1px solid rgba(160,200,255,.3); border-radius:3px; overflow:hidden;">
+                <a href="#" onClick="{{ desktopBtn.pick }}" style="font-size:14px; padding:8px 14px; background:{{ desktopBtn.bg }}; color:{{ desktopBtn.color }};">Desktop</a>
+                <a href="#" onClick="{{ mobileBtn.pick }}" style="font-size:14px; padding:8px 14px; background:{{ mobileBtn.bg }}; color:{{ mobileBtn.color }}; border-left:1px solid rgba(160,200,255,.3);">Mobile</a>
+              </div>
+              <a href="#" onClick="{{ openZoom }}" style="font-size:14px; padding:8px 14px; border:1px solid rgba(180,215,255,.55); border-radius:3px; color:#dce8ff; white-space:nowrap;" style-hover="background:rgba(140,180,255,.14);">Full screen ⤢</a>
+            </div>
+
+            <div style="width:100%; max-width:{{ frameMax }}; margin:0 auto; border:1px solid rgba(160,200,255,.3); border-radius:6px; overflow:hidden; background:#0a1024; box-shadow:0 24px 70px rgba(2,6,20,.6);">
+              <div style="display:flex; align-items:center; gap:8px; padding:9px 12px; background:rgba(14,26,56,.95); border-bottom:1px solid rgba(160,200,255,.22);">
+                <span style="width:9px; height:9px; border-radius:50%; background:rgba(160,200,255,.3);"></span>
+                <span style="width:9px; height:9px; border-radius:50%; background:rgba(160,200,255,.22);"></span>
+                <span style="width:9px; height:9px; border-radius:50%; background:rgba(160,200,255,.16);"></span>
+                <div style="flex:1; text-align:center; font-size:11px; color:#8ea6cc; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ screenUrl }}</div>
+                <div style="font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:#6f86ad;">Scroll</div>
+              </div>
+              <div style="height:min(64vh,620px); overflow-y:auto; overflow-x:hidden; background:#fff; -webkit-overflow-scrolling:touch;">
+                {{ viewerImg }}
+              </div>
+            </div>
+
+            <div style="font-size:13px; color:#8ea6cc;">{{ screenName }} — scroll inside the frame, or open full screen for full resolution.</div>
+          </div>
+          </sc-if>
+
+          <!-- placeholder grid for projects without screens yet -->
+          <sc-if value="{{ noScreens }}" hint-placeholder-val="{{ true }}">
+          <sc-for list="{{ current.shots }}" as="s" hint-placeholder-count="3">
+            <figure style="margin:0;">
+              <div style="border:1px solid rgba(160,200,255,.28); border-radius:4px; aspect-ratio:16/10; background:{{ current.swatch }}; display:flex; align-items:flex-end; padding:14px 18px;">
+                <div style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#dce8ff;">Screenshot pending</div>
+              </div>
+              <figcaption style="margin-top:9px; font-size:13px; color:#8ea6cc;">{{ s.cap }}</figcaption>
+            </figure>
+          </sc-for>
+          </sc-if>
+        </div>
+        </sc-if>
+
+      </div>
+    </div>
+
+    <!-- PROBLEM -->
+    <div style="margin-top:56px; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:clamp(20px,5vw,64px);">
+      <div style="font-size:12px; letter-spacing:0.3em; color:#a9caff; text-transform:uppercase;">Problem</div>
+      <div style="grid-column:span 2; min-width:0;">
+        <p style="margin:0; font-size:clamp(17px,1.8vw,20px); line-height:1.7; color:#e8eeff; text-wrap:pretty;">{{ current.problem }}</p>
+      </div>
+    </div>
+
+    <!-- APPROACH -->
+    <div style="margin-top:56px; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:clamp(20px,5vw,64px);">
+      <div style="font-size:12px; letter-spacing:0.3em; color:#a9caff; text-transform:uppercase;">Approach</div>
+      <div style="grid-column:span 2; min-width:0; display:flex; flex-direction:column; gap:26px;">
+        <sc-for list="{{ current.approach }}" as="a" hint-placeholder-count="3">
+          <div style="border-left:1px solid rgba(160,200,255,.32); padding-left:20px;">
+            <div style="font-size:17px; color:#f2f6ff; line-height:1.4;">{{ a.label }}</div>
+            <p style="margin:9px 0 0; font-size:16px; line-height:1.72; color:#b3c6e6; text-wrap:pretty;">{{ a.text }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- WHAT I BUILT -->
+    <div style="margin-top:56px; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:clamp(20px,5vw,64px);">
+      <div style="font-size:12px; letter-spacing:0.3em; color:#a9caff; text-transform:uppercase;">What I built</div>
+      <div style="grid-column:span 2; min-width:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1px;">
+        <sc-for list="{{ current.built }}" as="b" hint-placeholder-count="4">
+          <div style="background:rgba(10,22,52,.72); box-shadow:0 0 0 1px rgba(160,200,255,.2); padding:18px; font-size:15px; line-height:1.55; color:#e8eeff;">{{ b }}</div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- OUTCOME -->
+    <div style="margin-top:56px; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:clamp(20px,5vw,64px);">
+      <div style="font-size:12px; letter-spacing:0.3em; color:#a9caff; text-transform:uppercase;">Outcome</div>
+      <div style="grid-column:span 2; min-width:0;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:24px; padding-bottom:28px; border-bottom:1px solid rgba(160,200,255,.18);">
+          <sc-for list="{{ current.metrics }}" as="m" hint-placeholder-count="2">
+            <div>
+              <div data-glow-el style="font-size:clamp(30px,4vw,42px); font-weight:300; line-height:1; color:#f4f8ff; text-shadow:0 0 30px rgba(140,185,255,.4);">{{ m.value }}</div>
+              <div style="font-size:11px; letter-spacing:0.18em; color:#a3b8da; margin-top:10px; text-transform:uppercase; line-height:1.6;">{{ m.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <p style="margin:26px 0 0; font-size:clamp(17px,1.8vw,20px); line-height:1.7; color:#e8eeff; text-wrap:pretty;">{{ current.outcome }}</p>
+        <sc-if value="{{ current.hasQuote }}" hint-placeholder-val="{{ false }}">
+        <blockquote style="margin:30px 0 0; padding:22px 26px; border:1px solid rgba(160,200,255,.24); border-radius:4px; background:rgba(140,180,255,.07);">
+          <p style="margin:0; font-size:17px; line-height:1.65; color:#dce8ff; font-weight:300; text-wrap:pretty;">{{ current.quote }}</p>
+        </blockquote>
+        </sc-if>
+      </div>
+    </div>
+
+    <a href="#" onClick="{{ goNext }}" data-glow-el style="margin-top:56px; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:clamp(24px,4vw,36px); border:1px solid rgba(160,200,255,.28); border-radius:4px; background:linear-gradient(180deg, rgba(140,180,255,.14), rgba(140,180,255,.04)); color:#e8eeff; transition:box-shadow .35s, border-color .35s;" style-hover="box-shadow:0 0 44px rgba(140,180,255,.32); border-color:rgba(180,215,255,.55);">
+      <div><div style="font-size:11px; letter-spacing:0.2em; color:#a9caff; text-transform:uppercase;">Next project</div><div style="font-size:clamp(26px,4vw,42px); font-weight:300; line-height:1.15; color:#f4f8ff; margin-top:6px;">{{ current.nextName }}</div></div>
+      <span style="font-size:30px; color:#8ab6ff;">▸</span>
+    </a>
+  </div>
+  </sc-if>
+
+  <!-- ================= FULL SCREEN VIEWER ================= -->
+  <sc-if value="{{ zoomOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed; inset:0; z-index:200; background:#04081a; display:flex; flex-direction:column;">
+    <div style="flex:0 0 auto; display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:12px clamp(14px,3vw,26px); background:rgba(8,16,40,.96); border-bottom:1px solid rgba(160,200,255,.2);">
+      <div style="font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:#dce8ff; white-space:nowrap;">{{ screenName }}</div>
+      <div style="font-size:12px; color:#8ea6cc; white-space:nowrap;">{{ screenUrl }}</div>
+      <div style="flex:1 1 auto; min-width:0;"></div>
+      <sc-if value="{{ manyScreens }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <sc-for list="{{ screenTabs }}" as="t" hint-placeholder-count="2">
+          <a href="#" onClick="{{ t.pick }}" style="font-size:12px; padding:7px 13px; border-radius:3px; border:1px solid {{ t.border }}; background:{{ t.bg }}; color:{{ t.color }}; white-space:nowrap;">{{ t.name }}</a>
+        </sc-for>
+      </div>
+      </sc-if>
+      <div style="display:flex; border:1px solid rgba(160,200,255,.3); border-radius:3px; overflow:hidden;">
+        <a href="#" onClick="{{ desktopBtn.pick }}" style="font-size:14px; padding:7px 13px; background:{{ desktopBtn.bg }}; color:{{ desktopBtn.color }};">Desktop</a>
+        <a href="#" onClick="{{ mobileBtn.pick }}" style="font-size:14px; padding:7px 13px; background:{{ mobileBtn.bg }}; color:{{ mobileBtn.color }}; border-left:1px solid rgba(160,200,255,.3);">Mobile</a>
+      </div>
+      <a href="#" onClick="{{ closeZoom }}" style="font-size:14px; padding:8px 15px; border-radius:3px; background:#9dc2ff; color:#04101f; font-weight:600; white-space:nowrap;" style-hover="background:#fff;">Close ✕</a>
+    </div>
+    <div style="flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; background:#e9edf2;">
+      {{ zoomImg }}
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ================= FOOTER ================= -->
+  <footer style="position:relative; z-index:1; border-top:1px solid rgba(160,200,255,.16); background:rgba(7,14,36,.6);">
+    <div style="max-width:1240px; margin:0 auto; padding:24px clamp(18px,4vw,34px); display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#a3b8da;">
+      <span>© 2026 Ian Bonaparte · Design Engineer</span>
+      <span>Boston, MA</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:900},&quot;glow&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Appearance&quot;}}">
+class Component extends DCLogic {
+  state = { view: 'home', slug: null, pw: '', pwError: false, unlocked: false, screenIdx: 0, device: 'desktop', zoom: false };
+
+  projects() {
+    const g = (a, b) => `linear-gradient(135deg, ${a}, ${b})`;
+    return [
+      { slug:'jordans-ecom', num:'01', name:"Jordan's Furniture Site Redesign", year:'2022-23', blurb:'End-to-end Ecommerce reimagination',
+        swatch: g('rgba(215,180,255,.42)','rgba(90,60,160,.25)'), swatch2: g('rgba(195,160,240,.38)','rgba(75,50,140,.22)'),
+        domain:'Ecommerce', impact:'400% more product page traffic; ecom sales up 40%', role:'Front End Engineer & Project Manager',
+        thumb:'assets/screens/jordans-home-thumb.jpg', hero:'assets/screens/jordans-home-hero.jpg',
+        screens:[
+          { name:'Home page', url:'jordans.com', desktop:'assets/screens/jordans-home-desktop.png', mobile:'assets/screens/jordans-home-mobile.png' },
+          { name:'Outdoor landing page', url:'jordans.com/outdoor', desktop:'assets/screens/jordans-outdoor-desktop.png', mobile:'assets/screens/jordans-outdoor-mobile.png' }
+        ],
+        tagline:'A three-year rebuild of the ecommerce site at Jordan\'s Furniture, covering navigation, product pages, checkout and the analytics underneath them.',
+        problem:'The site was running an outdated design with slow pages, a confusing navigation structure and a checkout people gave up on. Nobody could say what shoppers were looking for, because nothing was being collected to answer that. Internally it was not taken seriously either. "Who buys furniture online" was a common phrase around the office.',
+        approach:[
+          { label:'Executive buy-in came before any of the design work', text:'The people funding the project had to believe furniture sells online. I walked executive stakeholders through the work early and kept doing it, so by the time we built anything the site had real backing inside the company.' },
+          { label:'Navigation rebuilt around shoppers, not the org chart', text:'The old structure mirrored how the business was organized internally. I restructured product discovery and checkout around how people actually shop for furniture, which meant fewer top-level categories and a much shorter path to a product page.' },
+          { label:'Sitecore, so marketing stopped waiting on engineering', text:'Campaign updates used to sit in a front-end queue. Building on Sitecore let the marketing team launch their own campaigns without us. Unglamorous work, but it changed how fast the company could move.' },
+          { label:'We A/B tested our way into the final designs', text:'Most of the open questions went out as tests instead of opinions: navigation labels, product card layouts, promo placement, checkout steps. Whichever version won became the design. Over 200 tests ran across the project, and having the numbers made design reviews considerably shorter.' },
+          { label:'A Google Tag Manager structure that outlived the project', text:'The old site collected almost nothing, so I set up Google Tag Manager properly, with consistent naming feeding a handful of Google Analytics dashboards. Traffic and revenue could be tracked long after launch, and whoever picked the site up next had somewhere to start.' }
+        ],
+        built:['Full front-end development of the redesign','Sitecore implementation for marketing self-service','Restructured navigation and product discovery','Rebuilt checkout experience'],
+        outcome:'Traffic to product pages went up 400%. Ecommerce sales the following year were up 40%, and Jordan\'s credit card applications rose 8%.',
+        metrics:[{ value:'+400%', label:'Traffic to product pages' },{ value:'+40%', label:'Ecom sales, following year' },{ value:'+8%', label:'Credit card applications' }],
+        quote:'The website was never taken seriously until I helped show the potential.',
+      },
+      { slug:'debticate-ui', num:'02', name:'Debticate New UI Overhaul', year:'2024-25', blurb:'Complete fintech platform redesign',
+        swatch: g('rgba(150,235,220,.42)','rgba(40,110,150,.25)'), swatch2: g('rgba(120,215,205,.38)','rgba(30,90,130,.22)'),
+        domain:'Fintech SaaS', impact:'Established design system standards where none existed', role:'Designer + Front End Engineer', gated:true, logo:'assets/logo-debticate.svg',
+        tagline:'Debticate is a fintech SaaS loan syndication platform. Its interface was still built like it was 2005, and there was no design system to fix it with.',
+        problem:'Debticate ran on an outdated 00s UI with no shared visual language. Buttons that did the same job looked completely different from page to page, because every engineer had written their own CSS for them. Whether a page felt consistent came down to who had built it.',
+        approach:[
+          { label:'I pushed for a design system instead of a reskin', text:'Repainting the screens would have been faster and everyone knew it. I argued for building the system underneath first, because a reskin drifts apart again within a few releases.' },
+          { label:'Atomic design, so a component existed once', text:'Everything composed up from atoms. A button lived in one place, with its variants written down as decisions instead of turning up later in somebody else\'s stylesheet.' },
+          { label:'Semantic HTML and BEM naming, so other people could use it', text:'The system had to make sense to engineers who had not built it. Predictable BEM class names and semantic markup meant they could find the right component and reuse it without coming to ask me.' }
+        ],
+        built:['Component library covering the platform','Atomic design structure with BEM naming','Semantic, accessible markup standards','Redesigned core platform screens'],
+        outcome:'Engineers built faster and more consistently than before, and clients responded well to the new interface. Client retention held at 100%.',
+        metrics:[{ value:'Best in class', label:'Experience' },{ value:'100%', label:'Client retention' }],
+        quote:'Engineers on the new UI all commented on how easy and surprisingly quick pages were ready for QA, because of a well-structured design system.',
+        shots:[{cap:'Platform dashboard, after'},{cap:'Component library: buttons, inputs, tables'},{cap:'Before and after, same screen'}],
+      },
+      { slug:'ai-assistant', num:'03', name:'Debticate AI Assistant', year:'2026', blurb:'AI Chatbot design',
+        swatch: g('rgba(180,215,255,.5)','rgba(60,110,200,.25)'), swatch2: g('rgba(140,190,255,.42)','rgba(40,80,170,.22)'),
+        domain:'Fintech SaaS', impact:'Request to production in under 60 days', role:'Designer + Front End Engineer', gated:true, logo:'assets/logo-debticate.svg',
+        tagline:'An AI assistant for Debticate, a fintech SaaS loan syndication platform, designed from scratch and in production in under 60 days.',
+        problem:'Clients had started expecting AI inside their day-to-day workflow. We had no assistant, no pattern for one, and no time for a long discovery phase.',
+        approach:[
+          { label:'Scoped it down to the minimum first', text:'I defined the smallest assistant that would be genuinely useful and designed against that. Everything else went on a list for later, which kept the scope conversation short.' },
+          { label:'Built out of the design system we already had', text:'The assistant needed patterns that did not exist yet, so I added them to the design system rather than leaving them as one-off screens. It looked native to the product from the first build.' },
+          { label:'Handed engineers a system rather than a spec', text:'The components and conventions were already documented, so Claude Code could work straight from them and engineers had the assistant running in weeks. There was very little translation between design and build.' }
+        ],
+        built:['Assistant UI designed from scratch','New patterns folded into the design system','Front-end implementation alongside engineering'],
+        outcome:'From request to production in under 60 days. Clients commented on how quickly it turned up.',
+        metrics:[{ value:'<60', label:'Days, request to production' },{ value:'Weeks', label:'Engineering build time' }],
+        quote:'', shots:[{cap:'Assistant docked beside a record view'},{cap:'Response with cited source and inline actions'},{cap:'Empty and loading states'}] },
+      { slug:'enchanted-village', num:'04', name:"Jordan's Furniture Enchanted Village", year:'2023', blurb:'Online ticketing and in-person experience',
+        swatch: g('rgba(255,220,170,.42)','rgba(150,90,40,.25)'), swatch2: g('rgba(240,195,145,.38)','rgba(125,75,35,.22)'),
+        domain:'Ecommerce', impact:'First online ticketing; shorter lines, staffing from sales data', role:'Front End Engineer & Project Manager',
+        thumb:'assets/screens/enchanted-thumb.jpg', hero:'assets/screens/enchanted-hero.jpg',
+        screens:[
+          { name:'Enchanted Village page', url:'jordans.com/enchanted-village', desktop:'assets/screens/ev-desktop.png', mobile:'assets/screens/ev-mobile.png' }
+        ],
+        tagline:'Jordan\'s Enchanted Village had never sold a ticket online. I built the flow that did, from landing page through to the printed ticket.',
+        problem:'COVID-era rules meant customers turned up expecting the whole thing to work online first. Jordan\'s had never sold Enchanted Village tickets online before, so there was nothing to improve on. All of it had to be built.',
+        approach:[
+          { label:'The printed ticket was part of the design', text:'The experience does not end at checkout. I designed the physical ticket alongside the digital flow, so what people were holding in line matched what they had just bought online.' },
+          { label:'Designed backwards from the door', text:'Store staff had to scan tickets at a busy entrance in December. I started from what worked at the door and shaped the checkout to fit it.' },
+          { label:'Training the store staff was part of shipping it', text:'A flow the store did not understand would have fallen apart on opening night, so employee training was in scope from the start instead of being handed over after launch.' }
+        ],
+        built:['Landing page, design and development','Ticketing and checkout flow','Physical ticket design','Employee training on the new process'],
+        outcome:'The handoff from online to the door held up. Lines were shorter, and for the first time the store could staff those nights against how many tickets had actually sold.',
+        metrics:[{ value:'First', label:'Online ticketing for the attraction' },{ value:'Shorter', label:'Lines at the door' }],
+        quote:'' },
+    ];
+  }
+
+
+  // Client-side gate: keeps screens off the public page, not a security boundary.
+  passphrase() { return atob('aWFuLXNjcmVlbnMtMjAyNg=='); } // ian-screens-2026
+
+  tryUnlock(e) {
+    if (e) e.preventDefault();
+    const ok = (this.state.pw || '').trim().toLowerCase() === this.passphrase();
+    if (ok) {
+      try { sessionStorage.setItem('ib_screens', '1'); } catch (err) {}
+      this.setState({ unlocked: true, pwError: false, pw: '' });
+    } else {
+      this.setState({ pwError: true });
+    }
+  }
+
+  observe() {
+    if (this._io) this._io.disconnect();
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); this._io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    requestAnimationFrame(() => {
+      document.querySelectorAll('[data-reveal]:not(.in)').forEach(el => this._io.observe(el));
+    });
+  }
+  componentDidMount() {
+    this.observe();
+    let u = false;
+    try { u = sessionStorage.getItem('ib_screens') === '1'; } catch (e) {}
+    if (u) this.setState({ unlocked: true });
+  }
+  componentDidUpdate() { this.observe(); }
+  componentWillUnmount() { if (this._io) this._io.disconnect(); }
+
+  jump(id) {
+    const scroll = () => {
+      const el = document.getElementById(id);
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 64, behavior: 'smooth' });
+    };
+    if (this.state.view !== 'home') {
+      this.setState({ view: 'home', slug: null }, () => requestAnimationFrame(() => requestAnimationFrame(scroll)));
+    } else {
+      scroll();
+    }
+  }
+
+  go(view, slug) {
+    this.setState({ view, slug: slug || null });
+    requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }));
+  }
+
+  renderVals() {
+    const list = this.projects();
+    const withOpen = list.map(p => ({
+      ...p,
+      open: (e) => { if (e) e.preventDefault(); this.go('project', p.slug); },
+      thumbImg: p.thumb
+        ? React.createElement('img', { src: p.thumb, alt: '', loading: 'lazy',
+            style: { display:'block', width:'100%', height:'100%', objectFit:'cover', objectPosition:'top center' } })
+        : (p.logo
+          ? React.createElement('div', {
+              style: { width:'100%', height:'100%', display:'flex', alignItems:'center', justifyContent:'center', padding:'0 26px' } },
+              React.createElement('img', { src: p.logo, alt: '', loading: 'lazy',
+                style: { display:'block', width:'100%', maxWidth:'190px', height:'auto', opacity:0.95 } }))
+          : null),
+    }));
+    const idx = list.findIndex(p => p.slug === this.state.slug);
+    const cur = idx >= 0 ? list[idx] : null;
+    const next = cur ? list[(idx + 1) % list.length] : null;
+    const current = cur ? {
+      ...cur, nextName: next.name, nextSlug: next.slug,
+      hasQuote: !!cur.quote,
+      shots: cur.shots || [],
+    } : {};
+    const glowOn = this.props.glow ?? false;
+    const unlocked = !!this.state.unlocked;
+    const gated = !!(cur && cur.gated);
+    const visible = !gated || unlocked;
+
+    // --- live screen viewer ---
+    const screens = (cur && cur.screens) || [];
+    const si = Math.min(this.state.screenIdx || 0, Math.max(0, screens.length - 1));
+    const isMobile = this.state.device === 'mobile';
+    const active = screens[si] || null;
+    const activeSrc = active ? (isMobile ? active.mobile : active.desktop) : '';
+    const activeAlt = active ? active.name + (isMobile ? ', mobile' : ', desktop') : '';
+    const screenTabs = screens.map((sc, i) => ({
+      name: sc.name,
+      color: i === si ? '#04101f' : '#a3b8da',
+      bg: i === si ? '#9dc2ff' : 'transparent',
+      border: i === si ? 'rgba(180,215,255,.7)' : 'rgba(160,200,255,.3)',
+      pick: (e) => { if (e) e.preventDefault(); this.setState({ screenIdx: i }); },
+    }));
+    const deviceBtn = (d) => ({
+      color: this.state.device === d ? '#04101f' : '#a3b8da',
+      bg: this.state.device === d ? '#9dc2ff' : 'transparent',
+      pick: (e) => { if (e) e.preventDefault(); this.setState({ device: d }); },
+    });
+
+    return {
+      glowAttr: glowOn ? 'on' : 'off',
+      locked: gated && !unlocked,
+      unlocked,
+      showScreens: visible,
+      showUnlockNote: gated && unlocked,
+      pw: this.state.pw || '',
+      pwError: !!this.state.pwError,
+      onPw: (e) => this.setState({ pw: e.target.value, pwError: false }),
+      onPwKey: (e) => { if (e.key === 'Enter') this.tryUnlock(e); },
+      submitPw: (e) => this.tryUnlock(e),
+      relock: (e) => {
+        if (e) e.preventDefault();
+        try { sessionStorage.removeItem('ib_screens'); } catch (err) {}
+        this.setState({ unlocked: false, pw: '', pwError: false });
+      },
+      isHome: this.state.view === 'home',
+      isProject: this.state.view === 'project',
+      projects: withOpen,
+      current,
+      goHome: (e) => { if (e) e.preventDefault(); this.go('home'); },
+      navWork: (e) => { if (e) e.preventDefault(); this.jump('work'); },
+      navSkills: (e) => { if (e) e.preventDefault(); this.jump('skills'); },
+      navAbout: (e) => { if (e) e.preventDefault(); this.jump('about'); },
+      navContact: (e) => { if (e) e.preventDefault(); this.jump('contact'); },
+      goNext: (e) => { if (e) e.preventDefault(); this.go('project', current.nextSlug); },
+
+      hasScreens: screens.length > 0,
+      viewerImg: (visible && activeSrc)
+        ? React.createElement('img', { src: activeSrc, alt: activeAlt,
+            style: { display:'block', width:'100%', height:'auto' } })
+        : null,
+      zoomImg: (visible && activeSrc)
+        ? React.createElement('img', { src: activeSrc, alt: activeAlt,
+            style: { display:'block', width:'100%', maxWidth: isMobile ? '430px' : '100%', height:'auto', margin:'0 auto', flex:'0 0 auto' } })
+        : null,
+      noScreens: screens.length === 0,
+      screenTabs,
+      manyScreens: screens.length > 1,
+      screenSrc: active ? (isMobile ? active.mobile : active.desktop) : '',
+      screenName: active ? active.name : '',
+      screenAlt: active ? active.name + (isMobile ? ', mobile' : ', desktop') : '',
+      screenUrl: active ? active.url : '',
+      isMobileView: isMobile,
+      desktopBtn: deviceBtn('desktop'),
+      mobileBtn: deviceBtn('mobile'),
+      frameMax: isMobile ? '390px' : '100%',
+      zoomOpen: !!this.state.zoom,
+      openZoom: (e) => { if (e) e.preventDefault(); this.setState({ zoom: true }); },
+      closeZoom: (e) => { if (e) e.preventDefault(); this.setState({ zoom: false }); },
+    };
+  }
+}
+</script>
+</body>
+</html>
